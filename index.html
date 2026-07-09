@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Prodezk — From Filing Fees to Memberships</title>
+<style>
+  :root{
+    --green:#00573B; --ink:#122B20; --gold:#B99659; --gold-soft:#E8DCC4;
+    --paper:#FBFAF7; --card:#F3F1EA; --muted:#5E6E64; --line:#DDD8CB;
+    --bad:#A3402A;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0}
+  body.en .es{display:none!important}
+  body.es .en{display:none!important}
+  .wrap{max-width:860px;margin:0 auto;padding:56px 20px 80px}
+  header.doc{border-bottom:3px solid var(--green);padding-bottom:28px;margin-bottom:44px}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:0 0 10px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(27px,6vw,38px);line-height:1.15;margin:0 0 14px;text-wrap:balance;font-weight:500}
+  .meta{color:var(--muted);font-size:14px}
+  h2{font-family:Georgia,serif;font-size:clamp(21px,4.5vw,26px);font-weight:500;margin:0 0 6px;text-wrap:balance}
+  section{margin:0 0 52px}
+  .sec-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin:0 0 6px}
+  p{max-width:68ch;margin:0 0 14px}
+  .verdict{background:var(--green);color:#F6F3EA;padding:26px 30px;border-radius:6px;margin:26px 0}
+  .verdict p{color:#F6F3EA;margin:0;font-size:17px;max-width:none}
+  .verdict strong{color:var(--gold-soft)}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:22px 0}
+  .kpi{background:var(--card);border-radius:6px;padding:16px 18px}
+  .kpi .n{font-family:Georgia,serif;font-size:clamp(22px,5vw,28px);font-variant-numeric:tabular-nums;line-height:1.1}
+  .kpi .n.bad{color:var(--bad)} .kpi .n.good{color:var(--green)}
+  .kpi .l{font-size:13px;color:var(--muted);margin-top:4px}
+  .tablewrap{overflow-x:auto;margin:18px 0;-webkit-overflow-scrolling:touch}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+  th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;font-weight:600;padding:8px 12px;border-bottom:2px solid var(--green)}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  td .sub{color:var(--muted);font-size:13px;display:block}
+  .neg{color:var(--bad);font-weight:600} .pos{color:var(--green);font-weight:600}
+  .bars{margin:20px 0 6px}
+  .bar-row{display:grid;grid-template-columns:minmax(110px,180px) 1fr 90px;align-items:center;gap:10px;margin:8px 0}
+  .bar-row .bl{font-size:13px;color:var(--muted)}
+  .bar-track{background:var(--card);border-radius:3px;height:26px}
+  .bar-fill{background:var(--green);height:100%;border-radius:3px}
+  .bar-fill.fade{background:var(--bad);opacity:.85}
+  .bar-row .bv{font-variant-numeric:tabular-nums;font-size:13.5px;text-align:right;white-space:nowrap}
+  .note{font-size:13.5px;color:var(--muted);max-width:70ch}
+  .tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:22px 0}
+  .tier{border:1px solid var(--line);border-radius:6px;padding:18px;background:#fff;display:flex;flex-direction:column;gap:8px}
+  .tier.anchor{border:2px solid var(--gold);background:#FDFBF5}
+  .tier h3{margin:0;font-size:15px;font-weight:650}
+  .tier .price{font-family:Georgia,serif;font-size:26px;font-variant-numeric:tabular-nums}
+  .tier .price span{font-size:14px;font-family:-apple-system,sans-serif;color:var(--muted)}
+  .tier ul{margin:0;padding-left:17px;font-size:13.5px;color:var(--muted)}
+  .tier li{margin:3px 0}
+  .tier .val{margin-top:auto;font-size:12.5px;color:var(--gold);font-weight:600;letter-spacing:.04em}
+  .tag{display:inline-block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;background:var(--gold);color:#fff;border-radius:3px;padding:2px 8px;font-weight:600}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  @media(max-width:640px){.twocol{grid-template-columns:1fr}.wrap{padding-top:76px}}
+  .risk{border-left:3px solid var(--bad);padding:2px 0 2px 16px;margin:14px 0}
+  .risk h4,.guard h4{margin:0 0 4px;font-size:15px}
+  .guard{border-left:3px solid var(--green);padding:2px 0 2px 16px;margin:14px 0}
+  .risk p,.guard p{font-size:14.5px;color:var(--muted);margin:0}
+  footer{border-top:1px solid var(--line);margin-top:60px;padding-top:20px;font-size:13px;color:var(--muted)}
+  footer p{max-width:none}
+  a{color:var(--green)}
+  ol.steps{padding-left:20px;max-width:70ch}
+  ol.steps li{margin:10px 0}
+  ol.steps li strong{display:block}
+  .langswitch{position:fixed;top:14px;right:14px;z-index:10;background:#fff;border:1px solid var(--line);border-radius:20px;padding:3px;display:flex;gap:2px;box-shadow:0 1px 6px rgba(18,43,32,.12)}
+  .langswitch button{border:0;background:transparent;font:600 13px/1 -apple-system,sans-serif;padding:7px 14px;border-radius:16px;cursor:pointer;color:var(--muted)}
+  .langswitch button.active{background:var(--green);color:#fff}
+  .langswitch button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+</style>
+</head>
+<body class="en">
+<div class="langswitch" role="group" aria-label="Language">
+  <button id="btn-en" onclick="setLang('en')" class="active">EN</button>
+  <button id="btn-es" onclick="setLang('es')">ES</button>
+</div>
+
+<div class="wrap">
+<header class="doc">
+  <p class="eyebrow"><span class="en">Prodezk · Strategy Research Package · July 8, 2026</span><span class="es">Prodezk · Paquete de investigación estratégica · 8 de julio, 2026</span></p>
+  <h1><span class="en">From filing fees to memberships: the case for flipping the business model</span><span class="es">De tarifas de registro a membresías: el caso para cambiar el modelo de negocio</span></h1>
+  <p class="meta"><span class="en">Sources: verified market research (25/25 claims confirmed against primary sources incl. LegalZoom FY2025 10-K and live competitor pricing) · Prodezk Zoho Books, cash basis, trailing 12 months Jul 2025–Jun 2026 vs prior year · Zoho item catalog (765 active items) · prodezk.com site audit</span><span class="es">Fuentes: investigación de mercado verificada (25/25 afirmaciones confirmadas contra fuentes primarias, incl. el informe 10-K FY2025 de LegalZoom y precios vivos de competidores) · Zoho Books de Prodezk, base de caja, últimos 12 meses jul 2025–jun 2026 vs año anterior · catálogo de artículos de Zoho (765 ítems activos) · auditoría del sitio prodezk.com</span></p>
+</header>
+
+<div class="verdict">
+  <p class="en"><strong>Verdict: the flip is less risky than standing still.</strong> Only 5% of revenue (~$116,000, the one-time formation stack) is actually at stake. Meanwhile the formation funnel has collapsed 73% in six months, 81% of revenue already behaves like a subscription, and ~$348,000/yr is leaking through ad-hoc discounts that a tier system would formalize — in exchange for auto-renewal.</p>
+  <p class="es"><strong>Veredicto: el cambio es menos riesgoso que quedarse quietos.</strong> Solo el 5% de los ingresos (~$116,000, los servicios únicos de formación) está realmente en juego. Mientras tanto, el embudo de formaciones colapsó 73% en seis meses, el 81% de los ingresos ya se comporta como suscripción, y ~$348,000/año se fugan en descuentos improvisados que un sistema de niveles formalizaría — a cambio de renovación automática.</p>
+</div>
+
+<section>
+  <p class="sec-eyebrow"><span class="en">Part 1 · Market</span><span class="es">Parte 1 · Mercado</span></p>
+  <h2><span class="en">Nobody profitable sells formation anymore — they sell what comes after</span><span class="es">Ya nadie rentable vende la formación — venden lo que viene después</span></h2>
+  <p class="en">Every verified competitor treats formation as the acquisition event and earns on recurring services. LegalZoom (the only public pure-play) now makes <strong>65% of its $756 million revenue from subscriptions</strong> — 1.94M units at ~$266/yr — and states in its 10-K that "the vast majority of new subscriptions originate from business formation orders." It bought $0-brand Inc Authority in Feb 2025 to widen the funnel, and outsourced tax to 1-800Accountant because it couldn't build what Prodezk already has.</p>
+  <p class="es">Todos los competidores verificados tratan la formación como el evento de adquisición y ganan con servicios recurrentes. LegalZoom (la única empresa pública del sector) ya obtiene <strong>el 65% de sus $756 millones de ingresos de suscripciones</strong> — 1.94M de unidades a ~$266/año — y declara en su 10-K que "la gran mayoría de las suscripciones nuevas se originan en órdenes de formación de empresas". Compró la marca de $0 Inc Authority en feb 2025 para ampliar el embudo, y tercerizó los impuestos a 1-800Accountant porque no pudo construir lo que Prodezk ya tiene.</p>
+  <div class="tablewrap"><table>
+    <tr><th><span class="en">Player</span><span class="es">Competidor</span></th><th><span class="en">Entry price</span><span class="es">Precio de entrada</span></th><th><span class="en">Where the money is</span><span class="es">Dónde está el dinero</span></th><th class="num"><span class="en">Ladder top</span><span class="es">Tope de la escalera</span></th></tr>
+    <tr><td>ZenBusiness</td><td><span class="en">$0 + state fee</span><span class="es">$0 + tarifa estatal</span></td><td><span class="en">$199–299/yr compliance &amp; RA renewals; $99 EIN, $99 OA upsells</span><span class="es">Renovaciones de cumplimiento y agente registrado $199–299/año; ventas adicionales de EIN $99 y acuerdo operativo $99</span></td><td class="num"><span class="en">~$300/yr + add-ons</span><span class="es">~$300/año + extras</span></td></tr>
+    <tr><td>doola <span class="sub en">closest comparable — international founders</span><span class="sub es">el comparable más cercano — fundadores internacionales</span></td><td><span class="en">$297/yr (no $0 tier)</span><span class="es">$297/año (sin nivel de $0)</span></td><td><span class="en">Tax &amp; Compliance $1,999/yr is its "most popular" tier</span><span class="es">Su nivel "más popular" es Tax &amp; Compliance a $1,999/año</span></td><td class="num">$2,999<span class="en">/yr</span><span class="es">/año</span></td></tr>
+    <tr><td>1-800Accountant</td><td><span class="en">formation free w/ plan</span><span class="es">formación gratis con plan</span></td><td><span class="en">Accounting subscription is the anchor ($209–469/mo, billed annually)</span><span class="es">La suscripción contable es el ancla ($209–469/mes, facturado anual)</span></td><td class="num">~$5,628<span class="en">/yr</span><span class="es">/año</span></td></tr>
+    <tr><td>Pilot</td><td>—</td><td><span class="en">$99/mo software bookkeeping; tax only sold bundled ($1,000–2,450/yr by entity)</span><span class="es">Contabilidad por software a $99/mes; impuestos solo en paquete ($1,000–2,450/año según entidad)</span></td><td class="num">$499/<span class="en">mo</span><span class="es">mes</span>+</td></tr>
+    <tr><td>LegalZoom</td><td><span class="en">$0 + state fee</span><span class="es">$0 + tarifa estatal</span></td><td><span class="en">Compliance, RA, advisory subscriptions attached at formation</span><span class="es">Suscripciones de cumplimiento, agente registrado y asesoría vendidas junto con la formación</span></td><td class="num"><span class="en">$266/yr avg ARPU</span><span class="es">$266/año ARPU prom.</span></td></tr>
+  </table></div>
+  <p class="note en">doola's 6.7× jump from its $297 entry tier to its $1,999 anchor is the industry telling you where willingness-to-pay sits for non-resident founders: tax and compliance, not the filing.</p>
+  <p class="note es">El salto de 6.7× de doola entre su nivel de entrada de $297 y su ancla de $1,999 es la industria diciéndonos dónde está la disposición a pagar de los fundadores no residentes: impuestos y cumplimiento, no el registro.</p>
+</section>
+
+<section>
+  <p class="sec-eyebrow"><span class="en">Part 2 · Your books</span><span class="es">Parte 2 · Nuestros números</span></p>
+  <h2><span class="en">The P&amp;L looks healthy; the funnel behind it is collapsing</span><span class="es">El P&amp;L se ve sano; el embudo detrás está colapsando</span></h2>
+  <div class="kpis">
+    <div class="kpi"><div class="n">$2,238,000</div><div class="l"><span class="en">Operating income, trailing 12 months (+6% YoY)</span><span class="es">Ingreso operativo, últimos 12 meses (+6% anual)</span></div></div>
+    <div class="kpi"><div class="n good">$662,000</div><div class="l"><span class="en">Net profit · 29.6% margin</span><span class="es">Utilidad neta · margen 29.6%</span></div></div>
+    <div class="kpi"><div class="n bad">−73%</div><div class="l"><span class="en">Formation filings, H1 2026 vs H1 2025</span><span class="es">Formaciones, 1er sem. 2026 vs 1er sem. 2025</span></div></div>
+    <div class="kpi"><div class="n">81%</div><div class="l"><span class="en">of revenue already recurring or annually repeating</span><span class="es">de los ingresos ya es recurrente o se repite anualmente</span></div></div>
+  </div>
+
+  <div class="bars">
+    <div class="bar-row"><div class="bl"><span class="en">Formations · Jul 24–Jun 25</span><span class="es">Formaciones · jul 24–jun 25</span></div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bv">230 · $130,000</div></div>
+    <div class="bar-row"><div class="bl"><span class="en">Formations · Jul 25–Jun 26</span><span class="es">Formaciones · jul 25–jun 26</span></div><div class="bar-track"><div class="bar-fill fade" style="width:49%"></div></div><div class="bv">112 · $64,000</div></div>
+    <div class="bar-row"><div class="bl"><span class="en">H1 2026 alone</span><span class="es">Solo 1er sem. 2026</span></div><div class="bar-track"><div class="bar-fill fade" style="width:13%"></div></div><div class="bv">31</div></div>
+  </div>
+  <p class="note en">EIN sales −52% in units, bank-account services −69%: the whole front door, not just filings. At the H1 run-rate Prodezk forms ~60 companies next year against ~200 dissolutions/non-renewals in the base (~18% churn proxy). Accounting-plan units already slipped 485 → 400 in H1 (−18%) — the first sign the harvest is running out of planted cohorts.</p>
+  <p class="note es">Ventas de EIN −52% en unidades, servicios de cuenta bancaria −69%: toda la puerta de entrada, no solo los registros. Al ritmo del primer semestre, Prodezk formará ~60 empresas el próximo año contra ~200 disoluciones/no-renovaciones en la base (~18% de deserción). Las unidades de planes contables ya cayeron de 485 a 400 en el semestre (−18%) — la primera señal de que la cosecha se está quedando sin cohortes sembradas.</p>
+
+  <div class="tablewrap"><table>
+    <tr><th><span class="en">Revenue behavior (12 months)</span><span class="es">Comportamiento del ingreso (12 meses)</span></th><th class="num">$</th><th class="num"><span class="en">Share</span><span class="es">Parte</span></th><th><span class="en">What's in it</span><span class="es">Qué incluye</span></th></tr>
+    <tr><td><span class="en">True recurring</span><span class="es">Recurrente real</span></td><td class="num">$1,010,000</td><td class="num">45%</td><td><span class="en">Accounting plans ($47,000 MRR, ~96 clients), virtual office (~323 clients @ $81/mo), RA, sales tax, telephony</span><span class="es">Planes contables ($47,000 mensuales, ~96 clientes), oficina virtual (~323 clientes a $81/mes), agente registrado, sales tax, telefonía</span></td></tr>
+    <tr><td><span class="en">Annually repeating</span><span class="es">Se repite cada año</span></td><td class="num">$817,000</td><td class="num">36%</td><td><span class="en">Income tax prep $597,000 (+23%), annual reports $220,000</span><span class="es">Preparación de impuestos $597,000 (+23%), reportes anuales $220,000</span></td></tr>
+    <tr><td><span class="en">Genuinely one-time</span><span class="es">Realmente único</span></td><td class="num">$430,000</td><td class="num">19%</td><td><span class="en">Formation stack $116,000, ITIN, catch-up bookkeeping, dissolutions</span><span class="es">Servicios de formación $116,000, ITIN, contabilidad de puesta al día, disoluciones</span></td></tr>
+  </table></div>
+  <p class="en">Two proof points that attach works when tried: registered agent units grew <strong>43 → 179 (+424%)</strong> this year, and tax prep keeps compounding off past cohorts. The machinery even exists already — the Zoho catalog carries yearly plan SKUs (Accounting Yearly Pro $8,018, Flex Space Yearly $1,060/$1,465) that are barely sold.</p>
+  <p class="es">Dos pruebas de que la venta adherida funciona cuando se intenta: las unidades de agente registrado crecieron <strong>de 43 a 179 (+424%)</strong> este año, y los impuestos siguen componiéndose sobre cohortes pasadas. La maquinaria ya existe — el catálogo de Zoho tiene SKUs de planes anuales (Accounting Yearly Pro $8,018, Flex Space anual $1,060/$1,465) que casi no se venden.</p>
+</section>
+
+<section>
+  <p class="sec-eyebrow"><span class="en">Part 3 · Pricing audit</span><span class="es">Parte 3 · Auditoría de precios</span></p>
+  <h2><span class="en">Two silent leaks: 16% off list, and a website that shows no prices at all</span><span class="es">Dos fugas silenciosas: 16% bajo lista, y un sitio web que no muestra ningún precio</span></h2>
+  <div class="twocol">
+    <div>
+      <p class="en"><strong>Catalog vs. realized.</strong> Across the top 17 items, realized prices run ~16% below Zoho list — <strong>$348,000/yr of ad-hoc discounting</strong> with nothing obtained in return. A tier system converts this leakage into structured bundle discounts traded for annual commitment and auto-renewal.</p>
+      <p class="es"><strong>Catálogo vs. realizado.</strong> En los 17 ítems principales, los precios realizados corren ~16% por debajo de la lista de Zoho — <strong>$348,000/año en descuentos improvisados</strong> sin obtener nada a cambio. Un sistema de niveles convierte esa fuga en descuentos estructurados de paquete a cambio de compromiso anual y renovación automática.</p>
+      <div class="tablewrap"><table>
+        <tr><th><span class="en">Item</span><span class="es">Ítem</span></th><th class="num"><span class="en">List</span><span class="es">Lista</span></th><th class="num"><span class="en">Realized</span><span class="es">Realizado</span></th><th class="num"><span class="en">Gap</span><span class="es">Brecha</span></th></tr>
+        <tr><td><span class="en">Income tax 1065 (partnership)</span><span class="es">Impuestos 1065 (partnership)</span></td><td class="num">$1,430</td><td class="num">$1,140</td><td class="num neg">−20%</td></tr>
+        <tr><td><span class="en">Income tax disregarded (NR)</span><span class="es">Impuestos disregarded (no residente)</span></td><td class="num">$1,335</td><td class="num">$1,088</td><td class="num neg">−19%</td></tr>
+        <tr><td><span class="en">Accounting Plan Pro (mo)</span><span class="es">Plan contable Pro (mes)</span></td><td class="num">$805</td><td class="num">$656</td><td class="num neg">−19%</td></tr>
+        <tr><td><span class="en">Flex Space Essential (mo)</span><span class="es">Flex Space Essential (mes)</span></td><td class="num">$105</td><td class="num">$81</td><td class="num neg">−23%</td></tr>
+        <tr><td><span class="en">Income tax 1120 (C-Corp)</span><span class="es">Impuestos 1120 (C-Corp)</span></td><td class="num">$1,520</td><td class="num">$1,278</td><td class="num neg">−16%</td></tr>
+        <tr><td><span class="en">Filing LLC – FL</span><span class="es">Registro LLC – FL</span></td><td class="num">$640</td><td class="num">$574</td><td class="num neg">−10%</td></tr>
+        <tr><td><span class="en">Annual report – FL</span><span class="es">Reporte anual – FL</span></td><td class="num">$430</td><td class="num">$441</td><td class="num pos">+3%</td></tr>
+        <tr><td><span class="en">Registered agent</span><span class="es">Agente registrado</span></td><td class="num">$265</td><td class="num">$282</td><td class="num pos">+6%</td></tr>
+      </table></div>
+      <p class="note en">Compliance items with deadlines (annual reports, RA) realize at or above list — urgency prices well. Negotiable services leak. Bundles put the deadline items in every tier and stop the negotiation.</p>
+      <p class="note es">Los ítems de cumplimiento con fecha límite (reportes anuales, agente registrado) se cobran a lista o por encima — la urgencia se cotiza bien. Los servicios negociables se fugan. Los paquetes ponen los ítems con fecha límite en cada nivel y terminan la negociación.</p>
+    </div>
+    <div>
+      <p class="en"><strong>Website.</strong> prodezk.com publishes no pricing anywhere — incorporation, office, tax, and accounting pages all route to "talk to an advisor." Positioning is premium ("for founders without borders"), which fits the strategy — but a prospect comparison-shopping sees competitors' "<strong>$0 + state fee</strong>" against Prodezk's "book a call." Part of the funnel collapse is a visibility problem, not a price problem: Prodezk never even enters the comparison set.</p>
+      <p class="es"><strong>Sitio web.</strong> prodezk.com no publica ningún precio — las páginas de incorporación, oficina, impuestos y contabilidad llevan a "hable con un asesor". El posicionamiento es premium ("for founders without borders"), lo cual encaja con la estrategia — pero un prospecto comparando ve el "<strong>$0 + tarifa estatal</strong>" de los competidores contra el "agende una llamada" de Prodezk. Parte del colapso del embudo es un problema de visibilidad, no de precio: Prodezk ni siquiera entra en la comparación.</p>
+      <p class="en">The flip fixes both at once: a public, simple tier page gives the marketing site a headline that competes ("<em>Company included. From $49/mo.</em>") while the advisor conversation moves upmarket to tier selection instead of price negotiation.</p>
+      <p class="es">El cambio arregla ambas cosas a la vez: una página pública y simple de niveles le da al sitio un titular que compite ("<em>Empresa incluida. Desde $49/mes.</em>") mientras la conversación con el asesor sube de nivel: selección de plan en vez de negociación de precio.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="sec-eyebrow"><span class="en">Part 4 · The proposed model</span><span class="es">Parte 4 · El modelo propuesto</span></p>
+  <h2><span class="en">Four tiers, built on the client Prodezk actually serves: the foreign individual</span><span class="es">Cuatro niveles, construidos sobre el cliente que Prodezk realmente atiende: la persona extranjera</span></h2>
+  <p class="en">99% of clients are non-resident individuals; all eventually need an ITIN, 90% need a US address. That reshapes the tiers: the address (owned Miami building, $0 marginal cost) and ITIN (in-house, ~164/yr already processed) move <em>into</em> the anchor, and the owner's personal 1040-NR joins the company return — a pairing no verified competitor offers.</p>
+  <p class="es">El 99% de los clientes son personas naturales no residentes; todos eventualmente necesitan un ITIN, y el 90% necesita una dirección en EE. UU. Eso redefine los niveles: la dirección (edificio propio en Miami, costo marginal $0) y el ITIN (interno, ~164/año ya procesados) entran <em>dentro</em> del nivel ancla, y la declaración personal 1040-NR del dueño se une a la de la empresa — una combinación que ningún competidor verificado ofrece.</p>
+  <div class="tiers">
+    <div class="tier">
+      <h3>Launch</h3>
+      <div class="price">$599<span class="en">/yr + state fee</span><span class="es">/año + tarifa estatal</span></div>
+      <ul class="en"><li>Formation, any state</li><li>EIN (incl. foreign)</li><li>Operating agreement</li><li>Registered agent — any state</li><li>Registered address: legal &amp; state mail only</li><li>Compliance calendar</li></ul>
+      <ul class="es"><li>Formación, cualquier estado</li><li>EIN (incl. extranjeros)</li><li>Acuerdo operativo</li><li>Agente registrado — cualquier estado</li><li>Dirección registrada: solo correo legal y estatal</li><li>Calendario de cumplimiento</li></ul>
+      <div class="val"><span class="en">List value $1,360 · COGS ~$201 · 66% GM</span><span class="es">Valor de lista $1,360 · costo ~$201 · margen 66%</span></div>
+    </div>
+    <div class="tier anchor">
+      <span class="tag"><span class="en">Anchor</span><span class="es">Ancla</span></span>
+      <h3>Residency &amp; Tax</h3>
+      <div class="price">$2,499<span class="en">/yr · $208/mo</span><span class="es">/año · $208/mes</span></div>
+      <ul class="en"><li>Everything in Launch</li><li><strong>ITIN included</strong> (year 1)</li><li>Company return (1120+5472 / 1065)</li><li><strong>Owner's 1040-NR included</strong></li><li>Annual report filed</li><li>Government mail: state + IRS scanned to your tax team</li><li>1:1 tax consult</li></ul>
+      <ul class="es"><li>Todo lo de Launch</li><li><strong>ITIN incluido</strong> (año 1)</li><li>Declaración de la empresa (1120+5472 / 1065)</li><li><strong>1040-NR personal del dueño incluida</strong></li><li>Reporte anual presentado</li><li>Correo gubernamental: estado + IRS escaneado al equipo de impuestos</li><li>Consulta tributaria 1:1</li></ul>
+      <div class="val"><span class="en">List value ~$4,285 · COGS ~$751 · 70% GM</span><span class="es">Valor de lista ~$4,285 · costo ~$751 · margen 70%</span></div>
+    </div>
+    <div class="tier">
+      <h3>Presence</h3>
+      <div class="price">$3,499<span class="en">/yr · $292/mo</span><span class="es">/año · $292/mes</span></div>
+      <ul class="en"><li>Everything in R&amp;T</li><li>Full mailbox: all mail scanned + forwarded</li><li>US business line</li><li>Banking setup support</li></ul>
+      <ul class="es"><li>Todo lo de R&amp;T</li><li>Buzón completo: todo el correo escaneado y reenviado</li><li>Línea telefónica de EE. UU.</li><li>Apoyo para apertura bancaria</li></ul>
+      <div class="val"><span class="en">List value ~$5,700 · COGS ~$978 · 72% GM</span><span class="es">Valor de lista ~$5,700 · costo ~$978 · margen 72%</span></div>
+    </div>
+    <div class="tier">
+      <h3>Finance</h3>
+      <div class="price">$599<span class="en">/mo (Essential) · $999/mo (Pro)</span><span class="es">/mes (Essential) · $999/mes (Pro)</span></div>
+      <ul class="en"><li>Everything in Presence</li><li>Monthly accounting plan</li><li>Sales tax filings</li><li>Quarterly estimates</li></ul>
+      <ul class="es"><li>Todo lo de Presence</li><li>Plan contable mensual</li><li>Declaraciones de sales tax</li><li>Estimados trimestrales</li></ul>
+      <div class="val"><span class="en">List value $625–1,080/mo</span><span class="es">Valor de lista $625–1,080/mes</span></div>
+    </div>
+  </div>
+  <p class="note en">Cost inputs: registered agent $0 in Florida (own address) / $99 out-of-state via InCorp — blended ~$51 at the current 48/52 state mix; address $0 marginal; ITIN, returns, and filings costed at loaded bilingual back-office labor. Including RA for <em>any</em> state costs at most $99 — competitors charge $199–299 for RA alone. Monthly accounting stays above the cheap tiers; formation is "included," never "free."</p>
+  <p class="note es">Insumos de costo: agente registrado $0 en Florida (dirección propia) / $99 fuera del estado vía InCorp — mezcla de ~$51 con la proporción actual 48/52 de estados; dirección con costo marginal $0; ITIN, declaraciones y presentaciones costeadas con mano de obra bilingüe interna. Incluir agente registrado en <em>cualquier</em> estado cuesta máximo $99 — los competidores cobran $199–299 solo por eso. La contabilidad mensual queda arriba de los niveles baratos; la formación se presenta como "incluida", nunca "gratis".</p>
+
+  <h2 style="margin-top:38px"><span class="en">The mail ladder — one address, three service levels</span><span class="es">La escalera de correo — una dirección, tres niveles de servicio</span></h2>
+  <p class="en">Launch and Residency &amp; Tax provide a <em>registered address</em>, not a mailbox. The line is legal-vs-commercial mail, and it's the industry-standard split (Northwest, ZenBusiness draw it identically):</p>
+  <p class="es">Launch y Residency &amp; Tax proveen una <em>dirección registrada</em>, no un buzón. La línea divisoria es correo legal vs. comercial, y es el estándar de la industria (Northwest y ZenBusiness la trazan igual):</p>
+  <div class="tablewrap"><table>
+    <tr><th><span class="en">Mail type</span><span class="es">Tipo de correo</span></th><th>Launch</th><th>Residency &amp; Tax</th><th>Presence / Finance</th></tr>
+    <tr><td><span class="en">Service of process, state notices (RA duty)</span><span class="es">Notificaciones legales y estatales (deber del agente registrado)</span></td><td><span class="en">Included</span><span class="es">Incluido</span></td><td><span class="en">Included</span><span class="es">Incluido</span></td><td><span class="en">Included</span><span class="es">Incluido</span></td></tr>
+    <tr><td><span class="en">Government mail — IRS, state tax</span><span class="es">Correo gubernamental — IRS, impuestos estatales</span></td><td>—</td><td><span class="en">Scanned to the tax team ("the IRS writes to your accountant")</span><span class="es">Escaneado al equipo de impuestos ("el IRS le escribe a su contador")</span></td><td><span class="en">Included</span><span class="es">Incluido</span></td></tr>
+    <tr><td><span class="en">Commercial mail — banks, vendors, packages</span><span class="es">Correo comercial — bancos, proveedores, paquetes</span></td><td colspan="2"><span class="en">Flex Space add-on, $105/mo</span><span class="es">Complemento Flex Space, $105/mes</span></td><td><span class="en">Included</span><span class="es">Incluido</span></td></tr>
+  </table></div>
+  <p class="note en">Clients <em>will</em> put the address on bank applications regardless — that's the attach trigger, not a violation to police: terms restrict commercial use without a Mail plan; the first stray letter gets scanned free with a one-line upgrade offer ($105/mo). Banking-minded clients are steered to Presence at onboarding, where the ladder already nudges them: Anchor + Flex à la carte ≈ $3,759/yr vs Presence $3,499 — the bundle saves ~$260.</p>
+  <p class="note es">Los clientes <em>van a</em> usar la dirección en solicitudes bancarias de todas formas — eso es el disparador de venta, no una infracción que vigilar: los términos restringen el uso comercial sin plan de correo; la primera carta se escanea gratis con una oferta de mejora de una línea ($105/mes). A los clientes con intención bancaria se les dirige a Presence desde el inicio, donde la escalera ya empuja: Ancla + Flex por separado ≈ $3,759/año vs Presence $3,499 — el paquete ahorra ~$260.</p>
+
+  <h2 style="margin-top:38px"><span class="en">The trade, quantified</span><span class="es">El intercambio, cuantificado</span></h2>
+  <p class="en"><strong>The renewal parity result:</strong> a Residency &amp; Tax client renewing in year 2 pays $2,499 against $2,504 of services at today's realized prices (company return $1,088 + 1040-NR $693 + annual report $441 + RA $282). Renewals concede nothing; the entire acquisition subsidy — formation, EIN, OA, ITIN — is a year-one, mostly-labor cost of ~$390.</p>
+  <p class="es"><strong>El resultado de paridad en renovación:</strong> un cliente de Residency &amp; Tax que renueva en el año 2 paga $2,499 contra $2,504 de servicios a los precios realizados de hoy (declaración de empresa $1,088 + 1040-NR $693 + reporte anual $441 + agente registrado $282). Las renovaciones no ceden nada; todo el subsidio de adquisición — formación, EIN, acuerdo operativo, ITIN — es un costo de año uno, mayormente de mano de obra, de ~$390.</p>
+  <p class="en"><strong>Give up:</strong> ~$116,000/yr of one-time formation-stack revenue (~$100,000 gross profit). <strong>Get:</strong> a blended ~$1,880/yr subscription per new client (50/35/10/5 tier mix) at ~70% tier gross margin ≈ $1,400 contribution/client/yr. <strong>Breakeven ≈ 71 incremental clients/yr</strong> — with headroom for overhead, call it 90–120. Prodezk did 230 formations last year while charging $569 for what competitors advertise at $0.</p>
+  <p class="es"><strong>Se entrega:</strong> ~$116,000/año de ingresos únicos de formación (~$100,000 de utilidad bruta). <strong>Se obtiene:</strong> una suscripción combinada de ~$1,880/año por cliente nuevo (mezcla de niveles 50/35/10/5) con ~70% de margen bruto ≈ $1,400 de contribución/cliente/año. <strong>Punto de equilibrio ≈ 71 clientes incrementales/año</strong> — con colchón para gastos generales, digamos 90–120. Prodezk hizo 230 formaciones el año pasado cobrando $569 por lo que los competidores anuncian a $0.</p>
+
+  <h2 style="margin-top:38px"><span class="en">One year from now: stay vs. pivot, whole company</span><span class="es">Dentro de un año: seguir igual vs. pivotar, compañía completa</span></h2>
+  <p class="en">Both paths start from the identical base: <strong>every existing client is kept, on their current (old-model) pricing</strong> — worth $2,027,000/yr, which is this year's $2,238,000 minus the revenue that this year's 112 new formations brought in (one-time fees + first-year attach). The only difference between the rows is what happens on the sales side for <em>new</em> clients over the next 12 months.</p>
+  <p class="es">Ambos caminos parten de la misma base: <strong>se conserva cada cliente actual, con sus precios actuales (modelo viejo)</strong> — que vale $2,027,000/año, es decir los $2,238,000 de este año menos los ingresos que trajeron las 112 formaciones nuevas de este año (cobros únicos + venta adherida del primer año). La única diferencia entre las filas es qué pasa en ventas con clientes <em>nuevos</em> durante los próximos 12 meses.</p>
+  <div class="tablewrap"><table>
+    <tr><th><span class="en">Path (next 12 months)</span><span class="es">Camino (próximos 12 meses)</span></th><th class="num"><span class="en">Existing clients<br>(kept, old pricing)</span><span class="es">Clientes actuales<br>(conservados, precios viejos)</span></th><th class="num"><span class="en">New clients<br>added this year</span><span class="es">Clientes nuevos<br>del año</span></th><th class="num"><span class="en">Total revenue</span><span class="es">Ingreso total</span></th><th class="num"><span class="en">Net profit</span><span class="es">Utilidad neta</span></th><th class="num"><span class="en">Recurring carried<br>into following year</span><span class="es">Recurrente que pasa<br>al año siguiente</span></th></tr>
+    <tr><td><em><span class="en">This year, actual (reference)</span><span class="es">Este año, real (referencia)</span></em></td><td class="num" colspan="2"><em>—</em></td><td class="num"><em>$2,238,000</em></td><td class="num"><em>$662,000</em></td><td class="num"><em>—</em></td></tr>
+    <tr><td><strong><span class="en">A · Stay</span><span class="es">A · Seguir igual</span></strong> — <span class="en">old model, current sales pace (30 new clients)</span><span class="es">modelo viejo, ritmo de ventas actual (30 clientes nuevos)</span></td><td class="num">$2,027,000</td><td class="num">$56,000</td><td class="num">$2,083,000</td><td class="num">$548,000</td><td class="num">$21,000</td></tr>
+    <tr><td><strong><span class="en">B · Pivot</span><span class="es">B · Pivotar</span></strong> — <span class="en">conservative, 200 new members</span><span class="es">conservador, 200 miembros nuevos</span></td><td class="num">$2,027,000</td><td class="num">$377,000</td><td class="num">$2,404,000</td><td class="num">$670,000</td><td class="num">$309,000</td></tr>
+    <tr><td><strong><span class="en">B · Pivot</span><span class="es">B · Pivotar</span></strong> — <span class="en">base, 300 new members</span><span class="es">base, 300 miembros nuevos</span></td><td class="num">$2,027,000</td><td class="num">$565,000</td><td class="num"><strong>$2,592,000</strong></td><td class="num"><strong>$747,000</strong></td><td class="num"><strong>$463,000</strong></td></tr>
+    <tr><td><strong><span class="en">B · Pivot</span><span class="es">B · Pivotar</span></strong> — <span class="en">optimistic, 450 new members</span><span class="es">optimista, 450 miembros nuevos</span></td><td class="num">$2,027,000</td><td class="num">$848,000</td><td class="num">$2,875,000</td><td class="num">$860,000</td><td class="num">$695,000</td></tr>
+  </table></div>
+  <p class="note en"><strong>Read it this way:</strong> "Stay" is not flat — it lands $114,000 of profit <em>below</em> this year, because this year's profit was earned with 112 formations and the stay-path only adds 30. The pivot rows already deduct what growth costs: trigger hires for the tax team ($50,000–130,000) and added marketing ($50,000–110,000). Pivot beats Stay from ~107 members onward.</p>
+  <p class="note es"><strong>Léalo así:</strong> "Seguir igual" no es quedarse plano — termina $114,000 de utilidad <em>por debajo</em> de este año, porque la utilidad de este año se ganó con 112 formaciones y ese camino solo agrega 30. Las filas del pivote ya descuentan lo que cuesta crecer: contrataciones para el equipo de impuestos ($50,000–130,000) y mercadeo adicional ($50,000–110,000). El pivote supera a seguir igual desde ~107 miembros.</p>
+  <p class="note en"><strong>Audited assumptions:</strong> cash basis, annual memberships billed upfront at signup (full fee lands in the calendar year); existing base unaffected (new-leads-only test, migration only at later renewal at parity pricing); blended member value $1,883/yr at the 50/35/10/5 tier mix; weighted tier gross margin 70.1% from real COGS (RA $0/$99, address $0, in-house labor); old-model new client = $1,033 one-time stack + 55% attach to annual report + tax; renewal 82% for the carry-forward column; state fees excluded as pass-through in both paths. Base reconstructs actuals exactly: $2,027,000 + $116,000 + $95,000 = $2,238,000 revenue; $506,000 + $99,000 + $57,000 = $662,000 net. Softest input: the 55% attach estimate for Path A (moves both paths' shared base equally, so the comparison is insensitive to it).</p>
+  <p class="note es"><strong>Supuestos auditados:</strong> base de caja, membresías anuales cobradas por adelantado al inscribirse (la tarifa completa cae en el año calendario); base existente sin tocar (prueba solo con prospectos nuevos, migración solo en renovaciones posteriores a precio de paridad); valor combinado por miembro $1,883/año con mezcla 50/35/10/5; margen bruto ponderado de niveles 70.1% con costos reales (agente registrado $0/$99, dirección $0, mano de obra interna); cliente nuevo del modelo viejo = $1,033 de cobros únicos + 55% de adherencia a reporte anual + impuestos; renovación 82% para la columna de arrastre; tarifas estatales excluidas por ser traslado directo en ambos caminos. La base reconstruye los reales con exactitud: $2,027,000 + $116,000 + $95,000 = $2,238,000 de ingresos; $506,000 + $99,000 + $57,000 = $662,000 netos. Supuesto más débil: el estimado de 55% de adherencia del camino A (mueve la base compartida de ambos caminos por igual, así que la comparación es insensible a él).</p>
+
+  <div class="tablewrap"><table>
+    <tr><th><span class="en">3-year scenario</span><span class="es">Escenario a 3 años</span></th><th class="num"><span class="en">New clients y1→y3</span><span class="es">Clientes nuevos a1→a3</span></th><th class="num"><span class="en">Subscription rev, yr 3</span><span class="es">Ingreso por suscripción, año 3</span></th><th class="num"><span class="en">Cumulative 3-yr</span><span class="es">Acumulado 3 años</span></th></tr>
+    <tr><td><span class="en">Status quo (paid, declining)</span><span class="es">Statu quo (pagado, en declive)</span></td><td class="num">70 → 45 → 30</td><td class="num">$125,000</td><td class="num">$380,000</td></tr>
+    <tr><td><span class="en">Flip — conservative</span><span class="es">Cambio — conservador</span></td><td class="num">200 → 220 → 240</td><td class="num">$836,000</td><td class="num">$1,715,000</td></tr>
+    <tr><td><span class="en">Flip — base</span><span class="es">Cambio — base</span></td><td class="num">300 → 350 → 400</td><td class="num">$1,338,000</td><td class="num">$2,688,000</td></tr>
+    <tr><td><span class="en">Flip — optimistic</span><span class="es">Cambio — optimista</span></td><td class="num">450 → 550 → 650</td><td class="num">$2,114,000</td><td class="num">$4,176,000</td></tr>
+  </table></div>
+  <p class="note en">New-cohort revenue only; excludes the existing ~600-entity base. Even the conservative case beats status quo ~4.5× cumulatively.</p>
+  <p class="note es">Solo ingresos de cohortes nuevas; excluye la base existente de ~600 entidades. Incluso el caso conservador supera al statu quo ~4.5× en el acumulado.</p>
+</section>
+
+<section>
+  <p class="sec-eyebrow"><span class="en">Part 5 · The edge</span><span class="es">Parte 5 · La ventaja</span></p>
+  <h2><span class="en">Why Prodezk can win a bundle war it shouldn't fight on price</span><span class="es">Por qué Prodezk puede ganar una guerra de paquetes que no debe pelear por precio</span></h2>
+  <p class="en">Every bundler assembles the same parts. The question is who <em>owns</em> the parts. Prodezk's structural advantages, verified against competitor sources on 2026-07-08:</p>
+  <p class="es">Todos los que empaquetan arman las mismas piezas. La pregunta es quién <em>es dueño</em> de las piezas. Ventajas estructurales de Prodezk, verificadas contra fuentes de los competidores el 8 de julio de 2026:</p>
+  <div class="tablewrap"><table>
+    <tr><th><span class="en">Asset</span><span class="es">Activo</span></th><th>Prodezk</th><th>doola / Firstbase / ZenBusiness</th></tr>
+    <tr><td><span class="en">US address</span><span class="es">Dirección en EE. UU.</span></td><td><span class="en">Owns the Miami building — $0 marginal, a real street address</span><span class="es">Edificio propio en Miami — costo marginal $0, dirección física real</span></td><td><span class="en">Resell CMRA/partner addresses at recurring cost</span><span class="es">Revenden direcciones de terceros con costo recurrente</span></td></tr>
+    <tr><td><span class="en">Tax preparation</span><span class="es">Preparación de impuestos</span></td><td><span class="en">In-house CPA practice, 553 returns/yr</span><span class="es">Práctica contable propia, 553 declaraciones/año</span></td><td><span class="en">doola outsources-in at tier prices; ZenBusiness &amp; LegalZoom hand tax to 1-800Accountant</span><span class="es">doola lo terceriza dentro de sus niveles; ZenBusiness y LegalZoom entregan los impuestos a 1-800Accountant</span></td></tr>
+    <tr><td><span class="en">Owner's personal 1040-NR</span><span class="es">1040-NR personal del dueño</span></td><td><span class="en">In-house, 59/yr already sold at $693</span><span class="es">Interna, 59/año ya vendidas a $693</span></td><td><strong><span class="en">doola: "does not file personal tax returns"</span><span class="es">doola: "no presenta declaraciones personales"</span></strong> <span class="en">(own help center); 1-800Accountant targets US residents</span><span class="es">(su propio centro de ayuda); 1-800Accountant apunta a residentes de EE. UU.</span></td></tr>
+    <tr><td>ITIN</td><td><span class="en">In-house W-7 processing, 164/yr — Certifying Acceptance Agent</span><span class="es">Trámite W-7 interno, 164/año — Certifying Acceptance Agent</span></td><td><span class="en">doola: paid add-on outside all tiers</span><span class="es">doola: complemento pago fuera de todos los niveles</span></td></tr>
+    <tr><td><span class="en">Delivery cost</span><span class="es">Costo de operación</span></td><td><span class="en">Bilingual Bogotá back office</span><span class="es">Equipo bilingüe en Bogotá</span></td><td><span class="en">US-cost support teams or offshore ticket queues</span><span class="es">Soporte a costo de EE. UU. o colas de tickets offshore</span></td></tr>
+    <tr><td><span class="en">Trust</span><span class="es">Confianza</span></td><td><span class="en">Since 2002, physical Brickell (Miami) office, Spanish-first</span><span class="es">Desde 2002, oficina física en Brickell (Miami), atención en español</span></td><td><span class="en">2019+ startups, English-first, no physical presence</span><span class="es">Startups de 2019+, primero en inglés, sin presencia física</span></td></tr>
+    <tr><td>Software</td><td><span class="en">LedgerAS — owned, Spanish-capable</span><span class="es">LedgerAS — propio, con capacidad en español</span></td><td><span class="en">Licensed or thin dashboards</span><span class="es">Licenciado o tableros superficiales</span></td></tr>
+  </table></div>
+
+  <div class="twocol" style="margin-top:26px">
+    <div>
+      <h2 style="font-size:21px"><span class="en">Red ocean — do not fight here</span><span class="es">Océano rojo — no pelear aquí</span></h2>
+      <p class="note en">$0 DIY formation for US residents: LegalZoom spends ~35% of revenue ($262 million) on marketing; ZenBusiness gives formation away nationwide. Commodity registered agent ($99–125). English-language software bookkeeping (Pilot at $99/mo). Competing here means buying Google Ads against nine-figure budgets for customers who don't need Prodezk's strengths.</p>
+      <p class="note es">Formación DIY a $0 para residentes de EE. UU.: LegalZoom gasta ~35% de sus ingresos ($262 millones) en mercadeo; ZenBusiness regala la formación en todo el país. Agente registrado commodity ($99–125). Contabilidad por software en inglés (Pilot a $99/mes). Competir aquí es comprar Google Ads contra presupuestos de nueve cifras por clientes que no necesitan las fortalezas de Prodezk.</p>
+    </div>
+    <div>
+      <h2 style="font-size:21px"><span class="en">Blue ocean — own this</span><span class="es">Océano azul — apropiarse de esto</span></h2>
+      <p class="note en"><strong>"US residency-in-a-box" for the foreign individual founder:</strong> company + address + ITIN + <em>both</em> tax returns (company and owner) + Spanish-first service + a real Miami office, in one membership. doola is the only funded player in the segment and it can't file the owner's return, sells ITIN separately, and rents its addresses. The anchor tier is a product that, as bundled, literally does not exist elsewhere.</p>
+      <p class="note es"><strong>"Residencia empresarial en EE. UU. en una caja" para el fundador extranjero:</strong> empresa + dirección + ITIN + <em>ambas</em> declaraciones (empresa y dueño) + servicio en español + una oficina real en Miami, en una sola membresía. doola es el único jugador financiado del segmento y no puede presentar la declaración del dueño, vende el ITIN por separado y alquila sus direcciones. El nivel ancla es un producto que, así empaquetado, literalmente no existe en otro lugar.</p>
+    </div>
+  </div>
+  <p style="margin-top:18px" class="en">The positioning sentence: <em>"Others form your company. Prodezk establishes you in the United States."</em> The $0 crowd sells a filing; the membership sells the founder's entire US existence — which is what a Bogotá or São Paulo entrepreneur is actually buying.</p>
+  <p style="margin-top:18px" class="es">La frase de posicionamiento: <em>"Otros forman su empresa. Prodezk lo establece en Estados Unidos."</em> Los de $0 venden un trámite; la membresía vende toda la existencia del fundador en EE. UU. — que es lo que un emprendedor de Bogotá o São Paulo realmente está comprando.</p>
+</section>
+
+<section>
+  <p class="sec-eyebrow"><span class="en">Part 6 · Brand architecture</span><span class="es">Parte 6 · Arquitectura de marcas</span></p>
+  <h2><span class="en">Where the membership lives: Summit sells it, Prodezk graduates it</span><span class="es">Dónde vive la membresía: Summit la vende, Prodezk la gradúa</span></h2>
+  <p class="en">Prodezk.com's luxury repositioning and the new self-service Summit Filings platform aren't a conflict with the membership model — they're the same two-brand ladder LegalZoom paid $49.3 million to assemble (premium LegalZoom + low-cost Inc Authority). The membership is the product that connects them:</p>
+  <p class="es">El reposicionamiento de lujo de Prodezk.com y la nueva plataforma de autoservicio Summit Filings no chocan con el modelo de membresías — son la misma escalera de dos marcas que LegalZoom pagó $49.3 millones por armar (LegalZoom premium + Inc Authority de bajo costo). La membresía es el producto que las conecta:</p>
+  <div class="tablewrap"><table>
+    <tr><th></th><th>Summit Filings <span class="sub en">summitfilings.com · self-service</span><span class="sub es">summitfilings.com · autoservicio</span></th><th>Prodezk <span class="sub en">prodezk.com · advisory</span><span class="sub es">prodezk.com · asesoría</span></th></tr>
+    <tr><td><span class="en">Role</span><span class="es">Rol</span></td><td><span class="en">Volume front door — acquires the foreign founder</span><span class="es">Puerta de entrada de volumen — adquiere al fundador extranjero</span></td><td><span class="en">Premium relationship — complexity and scale</span><span class="es">Relación premium — complejidad y escala</span></td></tr>
+    <tr><td><span class="en">Sells</span><span class="es">Vende</span></td><td><span class="en"><strong>Launch $599/yr</strong> and <strong>Residency &amp; Tax $2,499/yr</strong>, prices published, checkout online</span><span class="es"><strong>Launch $599/año</strong> y <strong>Residency &amp; Tax $2,499/año</strong>, precios publicados, compra en línea</span></td><td><span class="en"><strong>Presence</strong>, <strong>Finance</strong>, bespoke work (holdings, multi-entity, IRS appeals) — consultation-gated, no public prices</span><span class="es"><strong>Presence</strong>, <strong>Finance</strong>, trabajo a la medida (holdings, multi-entidad, apelaciones al IRS) — con consulta previa, sin precios públicos</span></td></tr>
+    <tr><td><span class="en">Headline</span><span class="es">Titular</span></td><td><span class="en">"Company, ITIN &amp; both tax returns. One membership." + CAA claim: no passport mailing</span><span class="es">"Empresa, ITIN y ambas declaraciones. Una membresía." + credencial CAA: sin enviar el pasaporte por correo</span></td><td><span class="en">"Founders without borders" — untouched</span><span class="es">"Founders without borders" — sin cambios</span></td></tr>
+    <tr><td><span class="en">Languages</span><span class="es">Idiomas</span></td><td>EN / ES / PT / ZH</td><td><span class="en">EN/ES advisory</span><span class="es">Asesoría EN/ES</span></td></tr>
+    <tr><td><span class="en">Delivery</span><span class="es">Operación</span></td><td colspan="2"><span class="en">Same Brickell + Bogotá back office; Summit operates as sales arm of ProDezk Inc. per the existing intercompany structure</span><span class="es">El mismo equipo de Brickell + Bogotá; Summit opera como brazo comercial de ProDezk Inc. según la estructura intercompañía existente</span></td></tr>
+  </table></div>
+  <p class="en"><strong>The correction this implies:</strong> Summit currently lists à-la-carte services at Prodezk list prices ($265 RA, $105/mo Flex Space, $345 annual reports) — the exact model the market data says is dying. The traction test should test <em>memberships</em>, not items. À-la-carte stays available on Summit as the price ladder that makes tiers obviously better value ($1,360 of parts vs $599 Launch).</p>
+  <p class="es"><strong>La corrección que esto implica:</strong> Summit hoy lista servicios sueltos a precios de lista de Prodezk (agente registrado $265, Flex Space $105/mes, reportes anuales $345) — exactamente el modelo que los datos del mercado dicen que está muriendo. La prueba de tracción debe probar <em>membresías</em>, no ítems sueltos. Lo suelto queda disponible en Summit como la escalera de precios que hace que los niveles se vean obviamente mejores ($1,360 en piezas vs $599 el Launch).</p>
+  <p class="note en">Graduation path: Summit anchor clients who grow (payroll, inventory, multi-state) get handed to a Prodezk advisor for Presence/Finance — an upsell conversation that starts from inside the relationship, not from an ad. Prodezk's luxury rebrand is preserved: it never shows a price grid.</p>
+  <p class="note es">Camino de graduación: los clientes ancla de Summit que crecen (nómina, inventario, multi-estado) pasan a un asesor de Prodezk para Presence/Finance — una conversación de venta que nace dentro de la relación, no de un anuncio. El rebranding de lujo de Prodezk se preserva: nunca muestra una tabla de precios.</p>
+
+  <h2 style="margin-top:38px"><span class="en">Configuration decided (Jul 8, 2026)</span><span class="es">Configuración decidida (8 jul 2026)</span></h2>
+  <div class="tablewrap"><table>
+    <tr><th><span class="en">Decision</span><span class="es">Decisión</span></th><th><span class="en">Call</span><span class="es">Definición</span></th></tr>
+    <tr><td><span class="en">Capacity</span><span class="es">Capacidad</span></td><td><span class="en">Hire as demand proves out — trigger when tax-team utilization hits ~80% of return capacity (~550/yr today; anchor adds ~2 returns + 1 ITIN per client)</span><span class="es">Contratar a medida que la demanda se compruebe — disparador al llegar a ~80% de la capacidad de declaraciones (~550/año hoy; el ancla agrega ~2 declaraciones + 1 ITIN por cliente)</span></td></tr>
+    <tr><td><span class="en">Existing base (~600 entities)</span><span class="es">Base existente (~600 entidades)</span></td><td><span class="en">Untouched during the 90-day new-leads test; migrate at natural renewal afterward</span><span class="es">Sin tocar durante la prueba de 90 días con prospectos nuevos; migrar después en renovaciones naturales</span></td></tr>
+    <tr><td><span class="en">Billing</span><span class="es">Facturación</span></td><td><span class="en">Annual upfront, monthly equivalent displayed ("$208/mo billed annually") — preserves cash profile</span><span class="es">Anual por adelantado, mostrando el equivalente mensual ("$208/mes facturado anual") — preserva el perfil de caja</span></td></tr>
+    <tr><td>LedgerAS</td><td><span class="en">Finance tiers only until the client-access module ships; then reassess as all-tier moat</span><span class="es">Solo en niveles Finance hasta que salga el módulo de acceso para clientes; luego reevaluar como foso en todos los niveles</span></td></tr>
+    <tr><td><span class="en">Positioning</span><span class="es">Posicionamiento</span></td><td><span class="en">Bilingual, global non-resident (not LatAm-exclusive); Summit's 4 languages carry it</span><span class="es">Bilingüe, no residente global (no exclusivo LatAm); los 4 idiomas de Summit lo sostienen</span></td></tr>
+    <tr><td><span class="en">Public pricing</span><span class="es">Precios públicos</span></td><td><span class="en">On Summit Filings only; Prodezk stays consultation-gated</span><span class="es">Solo en Summit Filings; Prodezk sigue con consulta previa</span></td></tr>
+    <tr><td>ITIN</td><td><span class="en">Prodezk is a Certifying Acceptance Agent — "no passport mailing" is a headline claim</span><span class="es">Prodezk es Certifying Acceptance Agent — "sin enviar el pasaporte por correo" es titular</span></td></tr>
+    <tr><td><span class="en">Timing</span><span class="es">Cronograma</span></td><td><span class="en">Test starts ASAP (July 2026), results before annual-report + tax season</span><span class="es">La prueba inicia ya (julio 2026), resultados antes de la temporada de reportes anuales e impuestos</span></td></tr>
+  </table></div>
+</section>
+
+<section>
+  <p class="sec-eyebrow"><span class="en">Part 7 · Risks &amp; execution</span><span class="es">Parte 7 · Riesgos y ejecución</span></p>
+  <h2><span class="en">Where this can go wrong, and the guardrails</span><span class="es">Dónde puede fallar, y las barreras de protección</span></h2>
+  <div class="risk"><h4><span class="en">Underpricing the existing base</span><span class="es">Subvalorar la base existente</span></h4><p class="en">The real danger. Full-stack clients pay ~$3,700/yr à la carte; a doola-priced $1,799 anchor would hand them a 50% discount. Guardrail: migrate only at renewal, at no more than ~10% below the client's current à-la-carte total, in exchange for auto-renewal.</p><p class="es">El peligro real. Los clientes de servicio completo pagan ~$3,700/año por separado; un ancla a precio de doola ($1,799) les regalaría un descuento del 50%. Barrera: migrar solo en renovación, a no más de ~10% por debajo de su total actual, a cambio de renovación automática.</p></div>
+  <div class="risk"><h4><span class="en">Working-capital dip from monthly billing</span><span class="es">Caída de capital de trabajo por facturación mensual</span></h4><p class="en">Monthly quotes ($175/mo) improve conversion but delay cash vs. today's upfront invoices. Guardrail: bill annually with monthly as a displayed equivalent (doola, 1-800Accountant do exactly this); the $662,000 profit cushion absorbs the transition.</p><p class="es">Las cuotas mensuales mejoran la conversión pero atrasan la caja frente a las facturas por adelantado de hoy. Barrera: facturar anual mostrando el equivalente mensual (doola y 1-800Accountant hacen exactamente eso); el colchón de $662,000 de utilidad absorbe la transición.</p></div>
+  <div class="risk"><h4><span class="en">Attach-rate assumption is unverified</span><span class="es">La tasa de adherencia es un supuesto no verificado</span></h4><p class="en">No public benchmark for free→paid attach survived fact-checking. Guardrail: the model breaks even at last year's volume; run the flip as a 90-day test on new leads only before touching the base.</p><p class="es">Ningún referente público de conversión gratis→pago sobrevivió la verificación. Barrera: el modelo llega a equilibrio con el volumen del año pasado; correr el cambio como prueba de 90 días solo con prospectos nuevos antes de tocar la base.</p></div>
+  <div class="guard"><h4><span class="en">What the data already proves</span><span class="es">Lo que los datos ya demuestran</span></h4><p class="en">RA attach grew +424% when pushed. Deadline-driven services realize above list. 81% of revenue already renews in practice. The flip formalizes existing behavior; it doesn't invent new behavior.</p><p class="es">La venta de agente registrado creció +424% cuando se impulsó. Los servicios con fecha límite se cobran por encima de lista. El 81% del ingreso ya renueva en la práctica. El cambio formaliza un comportamiento existente; no inventa uno nuevo.</p></div>
+
+  <h2 style="margin-top:38px"><span class="en">Migration path</span><span class="es">Ruta de migración</span></h2>
+  <ol class="steps en">
+    <li><strong>Phase 1 (30 days) — new leads only, on Summit Filings.</strong> Publish Launch + Residency &amp; Tax with the "company, ITIN &amp; both returns — one membership" headline and CAA claim. Prodezk.com untouched. Measure tier mix and close rate against the current quote flow.</li>
+    <li><strong>Phase 2 (60–90 days) — instrument.</strong> Create the tier SKUs in Zoho Books (yearly SKUs already exist), track attach and discounting weekly against the $348,000 leakage baseline.</li>
+    <li><strong>Phase 3 (from month 4) — migrate at renewal.</strong> Offer each existing client the tier nearest their current spend at annual-report or tax-season touchpoints, priced within 10% of their à-la-carte total. Grandfather refusals; let renewals convert the base over 12–18 months.</li>
+  </ol>
+  <ol class="steps es">
+    <li><strong>Fase 1 (30 días) — solo prospectos nuevos, en Summit Filings.</strong> Publicar Launch + Residency &amp; Tax con el titular "empresa, ITIN y ambas declaraciones — una membresía" y la credencial CAA. Prodezk.com sin cambios. Medir mezcla de niveles y tasa de cierre contra el flujo de cotización actual.</li>
+    <li><strong>Fase 2 (60–90 días) — instrumentar.</strong> Crear los SKUs de niveles en Zoho Books (los SKUs anuales ya existen), monitorear adherencia y descuentos cada semana contra la línea base de fuga de $348,000.</li>
+    <li><strong>Fase 3 (desde el mes 4) — migrar en renovación.</strong> Ofrecer a cada cliente existente el nivel más cercano a su gasto actual en los momentos de reporte anual o temporada de impuestos, con precio dentro del 10% de su total por separado. Respetar a quien rechace; dejar que las renovaciones conviertan la base en 12–18 meses.</li>
+  </ol>
+
+  <h2 style="margin-top:38px"><span class="en">Open questions before committing</span><span class="es">Preguntas abiertas antes de comprometerse</span></h2>
+  <p class="note en">① Cannibalization tolerance: what discount to the base is acceptable to buy auto-renewal? ② 1040-NR inclusion scope: only when filing is actually required (recommended — many disregarded-entity owners with no US-source ECI don't need one), to keep anchor COGS predictable. ③ When does the LedgerAS client-access module ship, unlocking software as an all-tier moat? ④ State-fee handling in Launch: pass-through (recommended) or absorbed?</p>
+  <p class="note es">① Tolerancia de canibalización: ¿qué descuento a la base es aceptable a cambio de renovación automática? ② Alcance del 1040-NR incluido: solo cuando la presentación sea realmente requerida (recomendado — muchos dueños de entidades disregarded sin ingreso efectivamente conectado en EE. UU. no la necesitan), para mantener predecible el costo del ancla. ③ ¿Cuándo sale el módulo de acceso para clientes de LedgerAS, que desbloquea el software como foso en todos los niveles? ④ Manejo de tarifas estatales en Launch: traslado directo (recomendado) o absorbidas.</p>
+</section>
+
+<footer>
+  <p class="en"><strong>Methodology.</strong> Market claims: 102-agent research run, 25/25 top claims verified 3–0 against primary sources (LegalZoom FY2025 10-K via SEC EDGAR; live pricing pages of ZenBusiness, doola, 1-800Accountant, Pilot fetched 2026-07-08). Financials: Prodezk Zoho Books via read-only API pulls — cash-basis P&amp;L and sales-by-item for Jul 2025–Jun 2026, prior year, and both H1 periods; item catalog of 765 active SKUs. Scenario model: 18% churn (dissolution proxy), 48% marginal contribution on legacy mixes and 70.1% weighted tier gross margin, blended tier mix 50/35/10/5. Stripe Atlas / Firstbase / Northwest claims did not survive verification and are excluded.</p>
+  <p class="es"><strong>Metodología.</strong> Afirmaciones de mercado: corrida de investigación con 102 agentes, 25/25 afirmaciones principales verificadas 3–0 contra fuentes primarias (10-K FY2025 de LegalZoom vía SEC EDGAR; páginas de precios vivas de ZenBusiness, doola, 1-800Accountant y Pilot consultadas el 2026-07-08). Finanzas: Zoho Books de Prodezk vía consultas de API de solo lectura — P&amp;L base de caja y ventas por ítem para jul 2025–jun 2026, el año anterior y ambos primeros semestres; catálogo de 765 SKUs activos. Modelo de escenarios: 18% de deserción (proxy de disoluciones), 48% de contribución marginal en mezclas del modelo viejo y 70.1% de margen bruto ponderado de niveles, mezcla 50/35/10/5. Las afirmaciones sobre Stripe Atlas / Firstbase / Northwest no sobrevivieron la verificación y quedaron excluidas.</p>
+</footer>
+</div>
+
+<script>
+function setLang(l){
+  document.body.className = l;
+  document.documentElement.lang = l;
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  document.getElementById('btn-es').classList.toggle('active', l==='es');
+  try{localStorage.setItem('lang', l)}catch(e){}
+}
+(function(){
+  var saved = null;
+  try{saved = localStorage.getItem('lang')}catch(e){}
+  var l = saved || ((navigator.language||'').toLowerCase().indexOf('es')===0 ? 'es' : 'en');
+  setLang(l);
+})();
+</script>
+</body>
+</html>
